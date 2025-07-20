@@ -17,7 +17,7 @@ export default function Dashboard() {
             <Dashboard >
                 <PlaceholderPattern className="h-96 w-full" />
                 <div className="text-center text-muted-foreground">
-                    This is the panel page. You can add your content here.
+                    This is the panel page. You can add your content here. test
                 </div>
             </Dashboard>
         </AppLayout>
