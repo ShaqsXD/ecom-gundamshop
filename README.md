@@ -1,66 +1,181 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# ISO Manual Management System
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A comprehensive ISO compliance management system built with Laravel and TypeScript React, featuring document management, version control, and approval workflows.
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+### Backend (Laravel 12)
+- **ISO Manual Management** - Create and manage ISO compliance manuals
+- **Section Hierarchy** - Organize content with nested sections and subsections  
+- **Procedure Documentation** - Document processes and procedures with detailed steps
+- **Document Management** - Attach and manage supporting documents
+- **Version Control** - Automatic revision tracking with change history
+- **Approval Workflows** - Multi-stage approval process for manual updates
+- **Search & Filtering** - Comprehensive search across all content
+- **API-First Design** - RESTful API for all operations
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Frontend (TypeScript React)
+- **Modern UI** - Clean, responsive interface with Tailwind CSS
+- **Real-time Updates** - Seamless SPA experience with Inertia.js
+- **Type Safety** - Full TypeScript coverage for better development experience
+- **Component Library** - Radix UI components for accessibility
+- **Dashboard Analytics** - Overview of manual status and upcoming reviews
+- **Advanced Search** - Global search across manuals, sections, and procedures
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## ISO Standards Supported
 
-## Learning Laravel
+The system is designed to support various ISO standards including:
+- **ISO 9001:2015** - Quality Management Systems
+- **ISO 14001:2015** - Environmental Management Systems
+- **ISO 45001:2018** - Occupational Health and Safety
+- **ISO 27001:2013** - Information Security Management
+- And other ISO standards with customizable sections
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Quick Start
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+1. **Clone and Setup**
+   ```bash
+   git clone <repository-url>
+   cd iso-manual-system
+   composer install
+   npm install
+   ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+2. **Environment Configuration**
+   ```bash
+   cp .env.example .env
+   php artisan key:generate
+   ```
 
-## Laravel Sponsors
+3. **Database Setup**
+   ```bash
+   touch database/database.sqlite
+   php artisan migrate
+   php artisan db:seed
+   ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+4. **Development Server**
+   ```bash
+   npm run dev
+   # In another terminal:
+   php artisan serve
+   ```
 
-### Premium Partners
+5. **Access the Application**
+   - Visit `http://localhost:8000`
+   - Login with: `admin@example.com` / `password`
+   - Or register a new account
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+## Database Schema
+
+### Core Entities
+
+- **iso_manuals** - Main ISO manual documents
+- **manual_sections** - Hierarchical sections within manuals
+- **procedures** - Detailed process documentation
+- **documents** - Supporting files and templates
+- **revisions** - Version history and change tracking
+- **users** - System users with role-based access
+
+### Key Relationships
+
+- Manuals contain multiple sections (hierarchical)
+- Sections can have procedures and documents
+- All entities support revision tracking
+- Users can be creators, approvers, and process owners
+
+## API Endpoints
+
+### Manuals
+- `GET /api/manuals` - List all manuals with filtering
+- `POST /api/manuals` - Create new manual
+- `GET /api/manuals/{id}` - Get manual details
+- `PUT /api/manuals/{id}` - Update manual
+- `DELETE /api/manuals/{id}` - Delete manual
+- `POST /api/manuals/{id}/approve` - Approve manual
+- `POST /api/manuals/{id}/submit-for-review` - Submit for review
+
+### Sections
+- `GET /api/sections` - List sections
+- `POST /api/sections` - Create section
+- `PUT /api/sections/{id}` - Update section
+- `DELETE /api/sections/{id}` - Delete section
+- `POST /api/sections/reorder` - Reorder sections
+
+### Search
+- `GET /api/search/global?q={query}` - Global search
+
+## Manual Workflow
+
+1. **Draft** - Initial creation and editing
+2. **Review** - Submit for management review
+3. **Approved** - Approved and active
+4. **Archived** - Superseded or obsolete
+
+## Version Control
+
+- Automatic revision tracking on all changes
+- Major vs minor change detection
+- Change summaries and reasons
+- Full audit trail with timestamps
+- Version incrementation for major changes
+
+## Security Features
+
+- Authentication required for all operations
+- Role-based access control
+- CSRF protection
+- Input validation and sanitization
+- Secure file upload handling
+
+## Development
+
+### Project Structure
+
+```
+├── app/
+│   ├── Http/Controllers/Api/  # API controllers
+│   ├── Models/               # Eloquent models
+│   ├── Http/Requests/        # Form request validation
+│   └── Traits/               # Reusable model traits
+├── resources/
+│   ├── js/
+│   │   ├── components/       # React components
+│   │   ├── pages/           # Inertia pages
+│   │   ├── types/           # TypeScript definitions
+│   │   └── lib/             # Utilities and configurations
+│   └── css/                 # Stylesheets
+├── database/
+│   ├── migrations/          # Database migrations
+│   └── seeders/             # Sample data
+└── routes/                  # Application routes
+```
+
+### Available Scripts
+
+- `npm run dev` - Start Vite development server
+- `npm run build` - Build for production
+- `npm run lint` - Run ESLint
+- `npm run format` - Format code with Prettier
+- `composer dev` - Start all development services
+- `php artisan migrate:fresh --seed` - Reset database with sample data
+
+## Sample Data
+
+The system includes sample data for:
+- ISO 9001:2015 Quality Management System manual
+- Complete section hierarchy (1-10)
+- Sample procedures and documents
+- User accounts for testing
 
 ## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-sourced software licensed under the [MIT license](LICENSE).
